@@ -5,7 +5,7 @@ spring:
     virtual:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:db_dev;MODE=MYSQL
+    url: jdbc:h2:./db_dev;MODE=MYSQL
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -23,7 +23,6 @@ spring:
       initialize-schema: always
     job:
       enabled: false
-
 logging:
   level:
     com.ll.sbb20240111: DEBUG

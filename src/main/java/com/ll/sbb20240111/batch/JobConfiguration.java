@@ -1,9 +1,10 @@
-package com.ll.sbb20240111;
+package com.ll.sbb20240111.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -19,6 +20,7 @@ public class JobConfiguration {
     public Job simpleJob1(JobRepository jobRepository, Step simpleStep1) {
         return new JobBuilder("simpleJob", jobRepository)
                 .start(simpleStep1)
+                .incrementer(new RunIdIncrementer())
                 .build();
     }
     @Bean

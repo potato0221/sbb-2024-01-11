@@ -1,4 +1,4 @@
-package com.ll.sbb20240111;
+package com.ll.sbb20240111.batch;
 
 
 import lombok.RequiredArgsConstructor;
@@ -15,10 +15,9 @@ public class BatchService {
     private final JobLauncher jobLauncher;
     private final Job simpleJob;
 
-    public void runBatchJob() {
+    public void runSimpleJob() {
         try {
             JobParameters jobParameters = new JobParametersBuilder()
-                    .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             jobLauncher.run(simpleJob, jobParameters);
         } catch (Exception e) {
