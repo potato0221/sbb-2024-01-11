@@ -6,6 +6,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +22,18 @@ public class JobConfiguration {
                 .build();
     }
     @Bean
-    public Step simpleStep1(JobRepository jobRepository, PlatformTransactionManager transactionManager){
-        return new StepBuilder("simpleStep1", jobRepository)
-                .tasklet((stepContribution, chunkContent)->{
-                    System.out.println("hello-world");
-                    return RepeatStatus.FINISHED;
-                }, transactionManager).build();
+    public Step simpleStep1(JobRepository jobRepository, Tasklet simpleStepTasklet1, PlatformTransactionManager transactionManager){
+        return new StepBuilder("simpleStep1Tasklet1", jobRepository)
+                .tasklet(simpleStepTasklet1,transactionManager)
+                .build();
+
+    }
+
+    @Bean
+    public Tasklet simpleStep1Tasklet1(){
+        return (((contribution, chunkContext) -> {
+            System.out.println("hello-world");
+            return RepeatStatus.FINISHED;
+        }));
     }
 }
